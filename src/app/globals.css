@@ -1,0 +1,557 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Дизайн-система iCITY. Единственный источник токенов.
+   Хардкодных hex, px-радиусов и кривых в компонентах быть не должно.
+   --------------------------------------------------------------------------- */
+
+/* static обязателен. Обычный @theme вырезает из :root переменные, на которые
+   в проекте пока нет ни одного класса: --duration-reveal, --ease-reveal,
+   --radius-card, --color-error исчезали, и любой duration-[var(--duration-reveal)]
+   молча становился нулевым. Проверено в браузере, а не по документации. */
+@theme static {
+  /* --- Палитра -------------------------------------------------------------
+     Шесть цветов. Дефолтная палитра Tailwind снесена намеренно: класс
+     вроде bg-slate-500 не должен существовать, иначе в вёрстку заползёт
+     седьмой цвет. Дополнительные оттенки — только через прозрачность. */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-sky:   #DCEBF7; /* основной фон */
+  --color-mist:  #BEDCF0; /* вторичный фон, карточки, разделители */
+  --color-azure: #0F63A8; /* акцент действий: кнопки, ссылки, цена */
+  --color-slate: #3F6580; /* вторичный текст, подписи */
+  --color-ink:   #16222B; /* основной текст */
+  --color-paper: #FFFFFF; /* карточки поверх фона, выворотка на azure */
+
+  /* Функциональный токен. Только валидация форм, и никогда не единственный
+     признак ошибки: цвет + иконка + текст + aria-invalid. */
+  --color-error: #A8384C;
+
+  /* --- Брейкпоинты ---------------------------------------------------------
+     Обязательно здесь. Без --breakpoint-* в @theme классы с префиксами
+     в Tailwind v4 молча не работают — этот баг уже стоил нам этапа.
+     Дефолтные sm/xl/2xl сняты: у проекта две точки, не пять. */
+  --breakpoint-*: initial;
+  --breakpoint-md: 650px;
+  --breakpoint-lg: 1275px;
+
+  /* --- Радиусы (в rem, значит в дизайн-пикселях) --------------------------- */
+  --radius-*: initial;
+  --radius-pill:  999px; /* кнопки, поля */
+  --radius-card:  2rem;  /* 20дп */
+  --radius-image: 1.6rem;/* 16дп */
+  --radius-field: 1.6rem;/* 16дп, альтернатива пилюле */
+
+  /* --- Кривые -------------------------------------------------------------- */
+  --ease-*: initial;
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1); /* появление, единая везде */
+  --ease-ui:     cubic-bezier(0.4, 0, 0.2, 1);  /* ховеры, фокус, мелкий хром */
+
+  /* --- Длительности -------------------------------------------------------- */
+  --duration-reveal:  1000ms;
+  --duration-stagger:  100ms;
+  --duration-ui:       300ms;
+  --duration-slow:    1400ms;
+
+  /* --- Появление ----------------------------------------------------------- */
+  --reveal-shift: 2.5rem;
+
+  /* --- Сетка --------------------------------------------------------------- */
+  --margin-page: 2rem;   /* поля 20дп */
+  --gutter:      1.4rem; /* гаттер 14дп, с 650px — 20дп */
+  --grid-cols:   4;      /* 4 → 12 от 650 → 24 от 1275 */
+
+  /* --- Вертикальный ритм ---------------------------------------------------
+     Используется ТОЛЬКО компонентом Section. Больше нигде. */
+  --rhythm-sm: 8rem;
+  --rhythm-md: 12rem;
+  --rhythm-lg: 18rem;
+}
+
+
+/* --- Шрифты -----------------------------------------------------------------
+   Свои файлы, не next/font/google. Отказ сознательный: плагин объявляет ВСЕ
+   подмножества Google, и убрать из них latin-ext нельзя. Один символ ₽
+   (U+20BD) живёт только там и тянул на первый экран 143 КБ — 114,9 КБ
+   Unbounded и 27,8 КБ Onest. Заменён сабсетом ровно из одного глифа: 1,1 КБ
+   на гарнитуру, минус 99%.
+
+   Файлы вырезаны из тех же самых подмножеств Google, вариативная ось wght
+   сохранена — поэтому один файл обслуживает оба веса через диапазон в
+   font-weight. Оставлены только latin, cyrillic и рубль: latin-ext,
+   cyrillic-ext, вьетнамское и наборы комбинирующих знаков не подключены
+   вовсе. Появится символ вне этих трёх наборов — он уедет в Arial, и это
+   будет видно на скриншоте, а не молча. */
+
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/unbounded-cyrillic.woff2") format("woff2");
+  font-weight: 200 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116;
+}
+
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/unbounded-latin.woff2") format("woff2");
+  font-weight: 200 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+??, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Рубль объявлен последним: при любом будущем пересечении диапазонов
+   выигрывает он, а не общий набор. */
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/unbounded-ruble.woff2") format("woff2");
+  font-weight: 200 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20BD;
+}
+
+@font-face {
+  font-family: "Onest";
+  src: url("/fonts/onest-cyrillic.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116;
+}
+
+@font-face {
+  font-family: "Onest";
+  src: url("/fonts/onest-latin.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+??, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Onest";
+  src: url("/fonts/onest-ruble.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20BD;
+}
+
+/* Метрические подложки — те же значения, что генерировал next/font.
+   Без них подмена шрифта после загрузки даёт скачок вёрстки. */
+@font-face {
+  font-family: "Unbounded Fallback";
+  src: local("Arial");
+  ascent-override: 73.93%;
+  descent-override: 18.2%;
+  line-gap-override: 0%;
+  size-adjust: 134.59%;
+}
+
+@font-face {
+  font-family: "Onest Fallback";
+  src: local("Arial");
+  ascent-override: 92.2%;
+  descent-override: 28.99%;
+  line-gap-override: 0%;
+  size-adjust: 105.2%;
+}
+
+/* --- Rem-канва -------------------------------------------------------------
+   Вместо clamp(). Три канвы, 1rem = 10 дизайн-пикселей. max-width у
+   контейнера нет: сетка тянется, кегли и отступы масштабируются вместе. */
+:root {
+  --canvas: 390;
+  --font-display: "Unbounded", "Unbounded Fallback";
+  --font-body: "Onest", "Onest Fallback";
+}
+@media (min-width: 650px) {
+  :root {
+    --canvas: 834;
+    --gutter: 2rem;
+    --grid-cols: 12;
+  }
+}
+@media (min-width: 1275px) {
+  :root {
+    --canvas: 1500;
+    --grid-cols: 24;
+  }
+}
+
+html {
+  font-size: max(8.5px, min(10 * 100vw / var(--canvas), 12px));
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto; /* скроллом управляет Lenis */
+  }
+
+  body {
+    background-color: var(--color-sky);
+    color: var(--color-ink);
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip; /* страховка от горизонтального скролла в 6px */
+  }
+
+  /* Заголовки — только Unbounded, только лёгкие начертания. */
+  h1, h2, h3 {
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+
+    /* Компенсация выносных кириллицы. При line-height 1.1 линейный бокс
+       Unbounded даёт под базовой линией 3.6px на кегле 69px, а хвосты у, р,
+       ф, д, ц, щ уходят на 10–12px и срезаются границей секции. line-height
+       не трогаем: 1.25 дало бы 8.6px запаса при выносе до 12.2px — всё равно
+       мало, а ритм бы поехал. Расширяем бокс полем снизу и тут же гасим его
+       отрицательным полем: запас появляется, высота не меняется ни на пиксель. */
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
+  }
+
+  /* Цвет надзаголовка задаёт тон секции, а не сам компонент. Один жёсткий
+     цвет на пяти фонах по контрасту не проходит: slate на azure давал 1.00 —
+     надпись исчезала целиком. Прозрачность только в одном месте, на mist:
+     чистый ink там даёт 11.3 и спорит с основным текстом. */
+  :root,
+  [data-tone="paper"],
+  [data-tone="sky"] {
+    --eyebrow: var(--color-slate);
+  }
+
+  [data-tone="mist"] {
+    --eyebrow: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  }
+
+  [data-tone="azure"],
+  [data-tone="ink"] {
+    --eyebrow: var(--color-paper);
+  }
+
+  /* Цвет волосяной линии тоже задаёт тон секции. Обводка --mist на mist-фоне
+     даёт контраст 1.00 и исчезает совсем — в секции 05 так пропали
+     разделители строк таблицы платежа, замерено: фон и граница выдавали
+     одинаковый rgb(190,220,240).
+
+     Эталон толщины — пара mist-на-белом, 1.43. На каждом тоне подобрана
+     прозрачность, дающая ту же зрительную толщину; коридор 1.42–1.46.
+     Прозрачность здесь вынужденная и вторая во всей палитре после
+     надзаголовка: шести чистых цветов на пять фонов не хватает.
+
+     Токен читает линия, лежащая НА ФОНЕ СЕКЦИИ: разделитель строк, обводка
+     карточки, обводка кнопки. Линия внутри белой карточки лежит на другой
+     поверхности и остаётся --mist — это и есть значение токена для тона
+     paper, эталонная пара.
+
+     Меняешь любой из шести цветов — пересчитывай эту таблицу целиком. */
+  :root,
+  [data-tone="paper"] {
+    --hairline: var(--color-mist);
+  }
+
+  [data-tone="sky"] {
+    --hairline: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  }
+
+  [data-tone="mist"] {
+    --hairline: color-mix(in srgb, var(--color-ink) 19%, transparent);
+  }
+
+  [data-tone="azure"] {
+    --hairline: color-mix(in srgb, var(--color-paper) 17%, transparent);
+  }
+
+  [data-tone="ink"] {
+    --hairline: color-mix(in srgb, var(--color-paper) 12%, transparent);
+  }
+
+  /* Числа всегда табличные: в калькуляторе и счётчиках цифры не должны прыгать. */
+  :where(table, [data-numeric]) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Якорные переходы не должны заезжать под фиксированную шапку. */
+  section[id],
+  [id="contact-sent"] {
+    scroll-margin-top: 9rem;
+  }
+
+  ::selection {
+    background-color: var(--color-azure);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-azure);
+    outline-offset: 3px;
+  }
+}
+
+/* --- Утилиты ---------------------------------------------------------------
+   --font-display и --font-body объявлены выше, рядом с @font-face.
+   Утилиты пишем явно, а не через @theme: так связка «переменная шрифта →
+   класс» не может тихо развалиться. */
+
+@utility font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility font-body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Поля страницы. max-width нет — так решено в разделе «Сетка и масштаб». */
+@utility container-page {
+  padding-inline: var(--margin-page);
+
+  /* flow-root обязателен. Без него отрицательное поле заголовка схлопывается
+     наружу, утекает через секцию и утаскивает следующую вверх: боксы секций
+     начинают перекрываться на 11px при неизменной высоте страницы. Замерено:
+     зазор между всеми 13 стыками становился -11px. ScrollTrigger и Flip
+     считают границы по этим боксам, так что перекрытие вылезло бы позже и не
+     там, где его стали бы искать. */
+  display: flow-root;
+}
+
+/* Сетка секции: 4 / 12 / 24 колонки. */
+@utility grid-page {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+/* Компенсация разрядки: положительный трекинг добавляется и после последней
+   буквы и растягивает контейнер. Гасим ровно на величину трекинга. */
+/* Полноэкранный кадр галереи убирает липкую панель: две плавающие
+   поверхности одновременно спорят за низ экрана.
+
+   Правило живёт в слое утилит, а не в base: display у панели задаёт
+   утилита flex, и из base его не перебить — слой сильнее специфичности.
+   Замерено: из base панель оставалась видимой при открытом кадре. */
+@layer utilities {
+  [data-viewer="open"] [data-sticky-cta] {
+    display: none;
+  }
+
+}
+
+/* Волосяная линия. Цвет берётся из тона секции, см. --hairline выше. */
+@utility border-hairline {
+  border-color: var(--hairline);
+}
+
+@utility tracked-wide {
+  letter-spacing: 0.12em;
+  margin-right: -0.12em;
+}
+
+
+/* --- Появление ---------------------------------------------------------------
+   Сдвиг 2.5rem плюс прозрачность, 1000 мс, кривая появления, шаг 100 мс.
+   Значения — токены выше, здесь только их применение.
+
+   Скрытое состояние включается ТОЛЬКО когда скрипты работают. Если JS
+   не выполнился, `scripting: enabled` не совпадёт, блок останется видимым,
+   и контент никогда не залипнет в невидимом состоянии из-за упавшего скрипта.
+   Браузер без поддержки этого медиапризнака тоже показывает всё сразу —
+   отказ в безопасную сторону. */
+
+/* --- Ползунок срока -----------------------------------------------------------
+   Нативный input[type=range] красится только вендорными псевдоэлементами,
+   поэтому правила продублированы для WebKit и Firefox. Заполненная часть
+   дорожки рисуется градиентом по --range-progress, его считает компонент. */
+.range-term {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2.4rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range-term::-webkit-slider-runnable-track {
+  height: 0.4rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-azure) 0 var(--range-progress, 0%),
+    var(--color-mist) var(--range-progress, 0%) 100%
+  );
+}
+
+.range-term::-moz-range-track {
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--color-mist);
+}
+
+.range-term::-moz-range-progress {
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--color-azure);
+}
+
+.range-term::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: -1rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-paper);
+  background: var(--color-azure);
+}
+
+.range-term::-moz-range-thumb {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-paper);
+  background: var(--color-azure);
+}
+
+.range-term:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-azure);
+  outline-offset: 3px;
+}
+
+.range-term:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--color-azure);
+  outline-offset: 3px;
+}
+
+/* --- Заголовки: строки под маской -------------------------------------------
+   lh-fix из брифа. Маска с overflow: hidden режет по линейному боксу, а у
+   кириллицы хвосты у, р, д, ц, щ уходят ниже базовой линии. Поднимаем
+   line-height строки-маски до 1.25, чтобы бокс стал выше хвостов, и гасим
+   прибавку отрицательным полем у всех строк, кроме первой, — иначе
+   заголовок вырастет и утащит за собой вертикальный ритм секции. */
+.split-mask {
+  line-height: 1.25;
+}
+
+.split-mask + .split-mask {
+  margin-top: var(--split-lh-fix, -0.3em);
+}
+
+/* Пока открыт полноэкранный кадр галереи, ни на одном блоке появления не
+   должно остаться transform: элемент с transform становится точкой отсчёта
+   для position: fixed, и просмотрщик внутри такого блока перестал бы
+   раскрываться во весь экран. После появления transform и так none — правило
+   закрывает единственную секунду перехода.
+
+   Правило вне слоёв, рядом с самим появлением: беcслойные стили сильнее
+   любого слоя, поэтому из @layer utilities оно бы не сработало. */
+/* --- Наезд секций -----------------------------------------------------------
+   Вуаль уходящей секции. Лежит внутри секции последним узлом, поэтому
+   накрывает её содержимое целиком — тон уходит вместе с текстом, кадрами и
+   линиями, а не поэлементно. Непрозрачностью управляет ScrollTrigger,
+   см. src/lib/desktop/overlap.ts. Цвет — mist: на светлом фоне затемнение
+   чёрным даёт грязь. */
+[data-overlap-veil] {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-mist);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Кастомный курсор --------------------------------------------------------
+   Кольцо дополняет нативный курсор, а не заменяет его: cursor: none в
+   проекте не появляется нигде. Геометрия в настоящих пикселях, не в rem:
+   это хром указателя, он не должен масштабироваться вместе с канвой.
+   Размер продублирован в CURSOR.size — меняется в двух местах сразу.
+
+   Цвет — по фактической поверхности под указателем, её светлоту считает
+   src/lib/desktop/cursor.ts. Тона секции здесь недостаточно: белая карточка
+   формы лежит внутри azure-секции, и кольцо выворотки пропало бы на ней. */
+[data-cursor] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: var(--color-azure);
+  opacity: 0;
+  pointer-events: none;
+  transition: color var(--duration-ui) var(--ease-ui);
+}
+
+[data-cursor][data-cursor-surface="dark"] {
+  color: var(--color-paper);
+}
+
+/* Пока открыт полноэкранный кадр галереи, сдвиг наезда снимается по той же
+   причине, что и трансформация появления: элемент с transform становится
+   точкой отсчёта для position: fixed, а просмотрщик лежит внутри секции 07,
+   у которой наезд как раз включён. */
+[data-viewer="open"] [data-overlap-shift] {
+  transform: none !important;
+  will-change: auto !important;
+}
+
+[data-viewer="open"] [data-reveal] {
+  transform: none !important;
+  /* will-change: transform создаёт точку отсчёта для fixed сам по себе,
+     даже когда самого transform нет. Замерено: с одним только transform:
+     none просмотрщик открывался в границах блока — 1402×259 вместо
+     1440×900. Гасим оба свойства. */
+  will-change: auto !important;
+}
+
+@media (scripting: enabled) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(var(--reveal-shift));
+    transition:
+      opacity var(--duration-reveal) var(--ease-reveal) var(--reveal-delay, 0ms),
+      transform var(--duration-reveal) var(--ease-reveal) var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  [data-reveal][data-shown="true"] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Переходы гасим везде, кроме появления: бриф оставляет его,
+     но только по прозрачности. */
+  *:not([data-reveal]),
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    transform: none !important;
+  }
+}

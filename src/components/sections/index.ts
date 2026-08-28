@@ -1,0 +1,14 @@
+export { IntroSection } from "./IntroSection";
+export { HeroSection } from "./HeroSection";
+export { NumbersSection } from "./NumbersSection";
+export { OfferSection } from "./OfferSection";
+export { TermsSection } from "./TermsSection";
+export { PlanSection } from "./PlanSection";
+export { InteriorSection } from "./InteriorSection";
+export { ViewSection } from "./ViewSection";
+export { TourSection } from "./TourSection";
+export { BuildingSection } from "./BuildingSection";
+export { LocationSection } from "./LocationSection";
+export { FaqSection } from "./FaqSection";
+export { ContactSection } from "./ContactSection";
+export { FooterSection } from "./FooterSection";

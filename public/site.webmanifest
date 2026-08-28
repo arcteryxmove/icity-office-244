@@ -1,0 +1,22 @@
+{
+  "name": "Офис 244,1 м² в БЦ iCITY, башня Space Tower",
+  "short_name": "iCITY · 244,1 м²",
+  "lang": "ru",
+  "start_url": "/ru",
+  "display": "browser",
+  "background_color": "#DCEBF7",
+  "theme_color": "#DCEBF7",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

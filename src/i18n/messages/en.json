@@ -1,0 +1,356 @@
+{
+  "meta": {
+    "title": "244.1 m² office at iCITY, Space Tower",
+    "description": "A 244.1 m² fitted and furnished office on the 23rd floor of Space Tower, iCITY, Moscow City. Leased directly by the owner."
+  },
+  "ui": {
+    "skipIntro": "Skip",
+    "soundOn": "Sound on",
+    "soundOff": "Sound off",
+    "language": "Language",
+    "call": "Call",
+    "book": "Book a viewing",
+    "loading": "Loading scene",
+    "sceneError": "The scene failed to load",
+    "sceneUnsupported": "This browser does not support 3D"
+  },
+  "sections": {
+    "intro": "Intro",
+    "tour": "Tour",
+    "location": "Location",
+    "faq": "Questions",
+    "contact": "Contact",
+    "footer": "Footer"
+  },
+  "scenes3d": {
+    "intro": "Flythrough into the office",
+    "plan": "3D floor plan",
+    "tour": "Virtual tour"
+  },
+  "hero": {
+    "eyebrow": "MOSCOW CITY · iCITY · SPACE TOWER",
+    "title": "244.1 m² on the 23rd floor, fitted out and furnished",
+    "lead": "Leased directly by the owner. Service charges and VAT are included in the rent.",
+    "ctaViewing": "Book a viewing",
+    "ctaPlan": "See the floor plan",
+    "price": "1 300 000 ₽ / month",
+    "priceNote": "about 64 000 ₽ per m² per year",
+    "included": [
+      "Service charges — included",
+      "VAT — included",
+      "Utilities — metered separately"
+    ],
+    "commitment": "Deposit 2 months · term from 11 months",
+    "imageAlt": "City view from the Space Tower"
+  },
+  "plan": {
+    "eyebrow": "FLOOR PLAN",
+    "title": "26 workstations, three private offices and a meeting room",
+    "note": "Layout changes are possible subject to the owner's approval",
+    "imageAlt": "Floor plan of unit 113N: five workstation clusters, three private offices, a meeting room, a kitchen and dining area, a lounge and reception",
+    "hint": "Hover or tap a zone",
+    "svgLabel": "Interactive floor plan",
+      "scrollRegion": "Floor plan, scrolls horizontally",
+    "seats": "{count, plural, one {# seat} other {# seats}}",
+    "zones": {
+      "cluster1": "Workstations",
+      "cluster2": "Workstations",
+      "cluster3": "Workstations",
+      "cluster4": "Workstations",
+      "cluster5": "Workstations",
+      "meeting": "Meeting room",
+      "office1": "Private office",
+      "office2": "Private office",
+      "office3": "Private office",
+      "wc1": "Restroom",
+      "wc2": "Restroom",
+      "storage": "Storage",
+      "kitchen": "Kitchen and dining",
+      "lounge": "Lounge",
+      "reception": "Reception"
+    }
+  },
+  "numbers": {
+    "eyebrow": "IN BRIEF",
+    "note": "Fitted out by PRIDEX, furniture included. Floor-to-ceiling glazing on two sides.",
+    "items": {
+      "area": {
+        "unit": "m²",
+        "label": "floor area"
+      },
+      "floor": {
+        "unit": "of 61",
+        "label": "floor in Space Tower"
+      },
+      "ceiling": {
+        "unit": "m",
+        "label": "ceiling height"
+      },
+      "seats": {
+        "unit": "",
+        "label": "workstations in five clusters"
+      }
+    },
+    "srTitle": "Key facts about the space"
+  },
+  "offer": {
+    "eyebrow": "WHY IT MAKES SENSE",
+    "title": "Below market, and no fit-out needed",
+    "note": "Leased directly by the owner. Viewings on the day you enquire.",
+    "blocks": {
+      "market": {
+        "title": "20–36% below market",
+        "text": "Comparable fitted blocks of 150–350 m² in iCITY are offered at 80 000–100 000 ₽ per m² per year. Our rate is about 64 000 ₽."
+      },
+      "ready": {
+        "title": "Move in without a fit-out",
+        "text": "Fitted out by PRIDEX, furniture included. A fit-out from shell and core takes three to six months and adds about 39% to the rate."
+      },
+      "payment": {
+        "title": "No add-ons to the payment",
+        "text": "Service charges and VAT are already in the rate. Only utilities are billed separately, by meter."
+      }
+    }
+  },
+  "terms": {
+    "eyebrow": "TERMS",
+    "title": "What the payment includes",
+    "rows": {
+      "rate": {
+        "k": "Rent",
+        "v": "1 300 000 ₽ / month"
+      },
+      "perSqm": {
+        "k": "Per square metre",
+        "v": "about 64 000 ₽ / m² per year"
+      },
+      "service": {
+        "k": "Service charges",
+        "v": "included"
+      },
+      "vat": {
+        "k": "VAT",
+        "v": "included"
+      },
+      "utilities": {
+        "k": "Utilities",
+        "v": "separate, by meter"
+      },
+      "deposit": {
+        "k": "Deposit",
+        "v": "2 months"
+      },
+      "minTerm": {
+        "k": "Minimum term",
+        "v": "11 months"
+      },
+      "furniture": {
+        "k": "Furniture",
+        "v": "included"
+      },
+      "layout": {
+        "k": "Layout changes",
+        "v": "subject to approval"
+      }
+    },
+    "calc": {
+      "legend": "Lease term",
+      "sliderLabel": "Lease term in months",
+      "months": "{count, plural, one {# month} other {# months}}",
+      "total": "Total over the term",
+      "deposit": "Deposit on signing",
+      "firstMonth": "Due in the first month",
+      "note": "Indicative calculation. Utilities are not included and are billed by meter."
+    }
+  },
+  "interior": {
+    "eyebrow": "THE COMPLEX",
+    "title": "Interiors and shared spaces at iCITY",
+    "note": "Photography of the complex. Photographs of the unit will be added.",
+    "open": "Open the frame",
+    "close": "Close",
+    "prev": "Previous frame",
+    "next": "Next frame",
+    "viewer": "Frame viewer",
+    "position": "Frame {current} of {total}",
+    "shots": {
+      "reception": "Reception: ribbed tile, light-wood slats, a round luminous disc",
+      "workspace": "Workstations along the floor-to-ceiling glazing, concrete columns, city view",
+      "meeting": "Meeting room: a round table, a backlit arch, a screen on the wall",
+      "kitchen": "Kitchen and café: a bar island, light-wood fronts, copper pendants"
+    }
+  },
+  "view": {
+    "eyebrow": "VIEW AND FLOOR",
+    "title": "23rd floor, panoramic on two sides",
+    "lead": "Floor-to-ceiling glazing on two sides, including the chamfered corner. Windows open; ceilings are 3.8 metres.",
+    "note": "Photographs of the view will be added.",
+    "facts": {
+      "floor": {
+        "unit": "of 61",
+        "label": "floor"
+      },
+      "ceiling": {
+        "unit": "m",
+        "label": "ceiling height"
+      },
+      "sides": {
+        "unit": "sides",
+        "label": "glazing, including the chamfered corner"
+      }
+    }
+  },
+  "building": {
+    "eyebrow": "THE BUILDING",
+    "title": "Space Tower at iCITY",
+    "lead": "Two towers of 150 and 259 metres joined by a podium. Developed by MR Group, designed by Helmut Jahn. Class A+.",
+    "groups": {
+      "shared": {
+        "title": "Shared spaces",
+        "items": [
+          "Designer lobby with a glass atrium",
+          "A garden at height",
+          "Panoramic terraces",
+          "Retail gallery with cafés and restaurants",
+          "Silent high-speed lifts"
+        ]
+      },
+      "access": {
+        "title": "Parking and access",
+        "items": [
+          "Six-level car park, 950 spaces",
+          "Direct entry from the Third Ring Road",
+          "Biometric access and CCTV",
+          "EV charging",
+          "Bicycle parking",
+          "Smart Building"
+        ]
+      }
+    }
+  },
+  "location": {
+    "eyebrow": "LOCATION",
+    "title": "Moscow City, a minute from Testovskaya station",
+    "address": "Ermakova Roshcha Street 1, building 1, unit 113N, Moscow",
+    "mapsCta": "Open in maps",
+    "mapsHint": "Yandex Maps, opens in a new tab",
+    "minutes": "{count, plural, one {minute} other {minutes}}",
+    "groups": {
+      "foot": {
+        "title": "On foot",
+        "routes": {
+          "testovskaya": {
+            "place": "Testovskaya (MCD)"
+          },
+          "shelepikha": {
+            "place": "Shelepikha (metro and MCC)"
+          },
+          "center": {
+            "place": "Delovoy Tsentr and Mezhdunarodnaya"
+          }
+        }
+      },
+      "car": {
+        "title": "By car",
+        "routes": {
+          "ring": {
+            "place": "Third Ring Road",
+            "note": "from the car park"
+          },
+          "kutuzovsky": {
+            "place": "Kutuzovsky Avenue"
+          }
+        }
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "QUESTIONS",
+    "title": "Ten questions that come up before a viewing",
+    "lead": "If yours is not here, call the building manager — it takes a minute.",
+    "items": [
+      {
+        "q": "What does the rent of 1 300 000 ₽ a month include?",
+        "a": "Service charges and VAT are included in the rate. The furniture is included too and stays in the office. Utilities are the only separate line, billed by meter."
+      },
+      {
+        "q": "What is payable on signing?",
+        "a": "A two-month deposit of 2 600 000 ₽ and the first month of 1 300 000 ₽ — 3 900 000 ₽ in total."
+      },
+      {
+        "q": "What is the minimum term?",
+        "a": "Eleven months. A longer term is open to discussion."
+      },
+      {
+        "q": "How many people does the office seat?",
+        "a": "Twenty-six workstations in five clusters of 4, 6, 6, 6 and 4, plus three private offices, a six-person meeting room and a kitchen-dining room with a table for ten."
+      },
+      {
+        "q": "Is any fit-out needed before moving in?",
+        "a": "No. The fit-out was done by PRIDEX and the space is furnished. For comparison, fitting out a shell-and-core space takes three to six months."
+      },
+      {
+        "q": "Can partitions be moved or removed?",
+        "a": "Yes, subject to the owner's approval. Bear in mind five round columns, three of which stand in the open-plan area."
+      },
+      {
+        "q": "How does the rate compare with the market?",
+        "a": "Comparable fitted blocks of 150–350 m² at iCITY ask 80 000–100 000 ₽ per m² per year. This one works out at about 64 000 ₽ — 20 to 36 per cent below. Fit-out alone adds roughly 39 per cent to a rate."
+      },
+      {
+        "q": "Is there parking?",
+        "a": "A six-level car park with 950 spaces and entry straight from the Third Ring Road. EV charging and bicycle parking are available."
+      },
+      {
+        "q": "How do I get there by public transport?",
+        "a": "Testovskaya (MCD) is a minute on foot, Shelepikha (metro and MCC) five minutes, Delovoy Tsentr and Mezhdunarodnaya ten minutes."
+      },
+      {
+        "q": "Who is the lease signed with?",
+        "a": "Directly with the owner. A viewing can be arranged the same day. The lease itself is drawn up and signed in Russian."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "CONTACT",
+    "title": "Viewings on the day you enquire",
+    "managerName": "Oksana Arenzon",
+    "managerRole": "property manager",
+    "phone": "8 (909) 379-80-15",
+    "email": "kryakushina@arenda-34.ru",
+    "messenger": "Max messenger",
+    "owner": "Leased directly by the owner.",
+    "sentAnchor": "Your request has been sent. Oksana will be in touch.",
+    "form": {
+      "name": "Name",
+      "nameError": "Please tell us what to call you.",
+      "contact": "Phone or email",
+      "contactError": "Check the phone number or email address — this is how we will reach you.",
+      "message": "Message",
+      "optional": "optional",
+      "submit": "Book a viewing",
+      "sending": "Sending",
+      "consent": "By submitting this form you consent to the processing of your personal data.",
+      "networkError": "The request did not go through — check your connection and press again. Your text is kept.",
+      "sentTitle": "Your request has been sent.",
+      "sentNote": "Oksana will reach you at the contact you left. If you would rather not wait, the phone number is alongside."
+    }
+  },
+  "header": {
+    "brand": "iCITY · 244.1 m²",
+    "toTop": "back to top",
+    "cta": "Book a viewing",
+    "language": "Page language"
+  },
+  "sticky": {
+    "call": "Call",
+    "book": "Book"
+  },
+  "footer": {
+    "title": "244.1 m² office at iCITY, Space Tower",
+    "address": "Ermakova Roshcha Street 1, building 1, unit 113N, Moscow",
+    "manager": "Oksana Arenzon, property manager",
+    "messenger": "Max messenger",
+    "owner": "Leased directly by the owner"
+  }
+}
